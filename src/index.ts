@@ -79,6 +79,7 @@ export const execute = async () => {
     const cancelAll = client.createCancelAllOrdersInstruction(
       marketPubkey.toString(),
       traderKeypair.publicKey
+      
     );
     // Note we could bundle this with the place order transaction below, but we choose to cancel
     // separately since getting the price could take a non-deterministic amount of time
