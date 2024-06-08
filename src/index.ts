@@ -119,28 +119,31 @@ export const execute = async () => {
       let askPrice = price + EDGE;
 
       console.log(`SOL price: ${price}`);
-      console.log(`Placing bid (buy) order at: ${bidPrice}`);
+    console.log(`Placing bid (buy) order at: ${bidPrice}`);
       console.log(`Placing ask (sell) order at: ${askPrice}`);
 
-      const currentTime = Math.floor(Date.now() / 1000);
 
-      const bidOrderTemplate: phoenixSdk.LimitOrderTemplate = {
-        side: phoenixSdk.Side.Bid,
-        priceAsFloat: bidPrice,
-        sizeInBaseUnits: 1,
-        selfTradeBehavior: phoenixSdk.SelfTradeBehavior.Abort,
-        clientOrderId: 1,
-        useOnlyDepositedFunds: false,
-        lastValidSlot: undefined,
-        lastValidUnixTimestampInSeconds:
-          currentTime + ORDER_LIFETIME_IN_SECONDS,
-      };
+     const currentTime = Math.floor(Date.now() / 1000);
 
-      const bidLimitOrderIx = client.getLimitOrderInstructionfromTemplate(
-        marketPubkey.toBase58(),
-        traderKeypair.publicKey,
-        bidOrderTemplate
-      );
+
+     const bidOrderTemplate: phoenixSdk.LimitOrderTemplate = {
+       side: phoenixSdk.Side.Bid,
+       priceAsFloat: bidPrice,
+       sizeInBaseUnits: 1,
+       selfTradeBehavior: phoenixSdk.SelfTradeBehavior.Abort,
+       clientOrderId: 1,
+       useOnlyDepositedFunds: false,
+       lastValidSlot: undefined,
+       lastValidUnixTimestampInSeconds:
+         currentTime + ORDER_LIFETIME_IN_SECONDS,
+     };
+
+
+     const bidLimitOrderIx = client.getLimitOrderInstructionfromTemplate(
+       marketPubkey.toBase58(),
+       traderKeypair.publicKey,
+       bidOrderTemplate
+     );
 
       const askOrderTemplate: phoenixSdk.LimitOrderTemplate = {
         side: phoenixSdk.Side.Ask,
